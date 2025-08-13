@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #ff006e 100%);
+    color: white;
+    overflow-x: hidden;
+}
+
+
+@media (max-width: 768px) {
+    .hero h1 { font-size: 2.5rem; }
+    .hero p { font-size: 1.2rem; }
+    .countdown { flex-wrap: wrap; gap: 1rem; }
+    .countdown-item { padding: 1.5rem 1rem; }
+    .countdown-number { font-size: 2rem; }
+    .timeline::before { left: 30px; }
+    .timeline-content { width: calc(100% - 80px); margin-left: 80px; }
+    .timeline-item:nth-child(even) .timeline-content { margin-left: 80px; }
+    .timeline-time { left: 30px; transform: translateY(-50%); }
+}
+
+@media (max-width: 480px) {
+    .hero h1 { font-size: 2rem; }
+    .countdown { gap: 0.5rem; }
+    .countdown-item { padding: 1rem 0.8rem; }
+    .section-title { font-size: 2rem; }
+}

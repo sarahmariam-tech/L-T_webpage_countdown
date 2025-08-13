@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HackQuest 2025 - Ultimate Hackathon</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #ff006e 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .countdown {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .countdown-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: pulse 2s infinite;
+        }
+
+        .countdown-number {
+            font-size: 3rem;
+            font-weight: bold;
+            display: block;
+            animation: countdownPulse 1s ease-in-out infinite alternate;
+        }
+
+        .countdown-label {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        .speakers {
+            min-height: 100vh;
+            padding: 5rem 2rem;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .speakers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .speaker-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: slideInUp 1s ease-out;
+        }
+
+        .speaker-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .speaker-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .speaker-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .speaker-title {
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .speaker-bio {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .schedule {
+            min-height: 100vh;
+            padding: 5rem 2rem;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #ff6b6b, #4ecdc4);
+            transform: translateX(-50%);
+            animation: lineGrow 2s ease-out;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .timeline-item:nth-child(even) {
+            animation: slideInRight 1s ease-out;
+        }
+
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            width: 45%;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: auto;
+        }
+
+        .timeline-time {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: #ff6b6b;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: bold;
+            z-index: 3;
+        }
+
+        .timeline-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-desc {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* Calendar Button */
+        .register-btn {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out 0.9s both;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .register-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+         (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .countdown {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .countdown-item {
+                padding: 1.5rem 1rem;
+            }
+
+            .countdown-number {
+                font-size: 2rem;
+            }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-content {
+                width: calc(100% - 80px);
+                margin-left: 80px;
+            }
+
+            .timeline-item:nth-child(even) .timeline-content {
+                margin-left: 80px;
+            }
+
+            .timeline-time {
+                left: 30px;
+                transform: translateY(-50%);
+            }
+        }
+
+         (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .countdown {
+                gap: 0.5rem;
+            }
+
+            .countdown-item {
+                padding: 1rem 0.8rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+  
+    <section class="hero">
+        <div class="hero-content">
+            <h1>HackQuest 2025</h1>
+            <p>The Ultimate 24-Hour Hackathon Experience</p>
+            
+            <div class="countdown">
+                <div class="countdown-item">
+                    <span class="countdown-number">1</span>
+                    <span class="countdown-label">Day</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number">14</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number">32</span>
+                    <span class="countdown-label">Minutes</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number">18</span>
+                    <span class="countdown-label">Seconds</span>
+                </div>
+            </div>
+            
+            <a href="#" class="register-btn">REGISTER</a>
+        </div>
+    </section>
+
+    <section class="speakers">
+        <div class="container">
+            <h2 class="section-title">Mentor Speakers</h2>
+            <div class="speakers-grid">
+                <div class="speaker-card">
+                    <div class="speaker-avatar">BR</div>
+                    <h3 class="speaker-name">Bellu John</h3>
+                    <p class="speaker-title">Full-Stack Developer, DevMasters</p>
+                    <p class="speaker-bio">Expert in modern web development with 12 years of experience building scalable applications and mentoring hackathon teams worldwide.</p>
+                </div>
+                <div class="speaker-card">
+                    <div class="speaker-avatar">AM</div>
+                    <h3 class="speaker-name">Ann Mathew</h3>
+                    <p class="speaker-title">Mobile App Architect, InnovateLab</p>
+                    <p class="speaker-bio">Leading mobile development specialist focusing on cross-platform solutions and innovative user experiences for startup ecosystems.</p>
+                </div>
+                <div class="speaker-card">
+                    <div class="speaker-avatar">SW</div>
+                    <h3 class="speaker-name">Sarah Wilson</h3>
+                    <p class="speaker-title">Data Science Lead, TechVenture</p>
+                    <p class="speaker-bio">Machine learning enthusiast and data visualization expert helping teams leverage AI and analytics in their hackathon projects.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="schedule">
+        <div class="container">
+            <h2 class="section-title">Hackathon Schedule</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Registration & Team Formation</h3>
+                        <p class="timeline-desc">Check-in, welcome kit distribution, and team building sessions for all participants.</p>
+                    </div>
+                    <div class="timeline-time">6:00 PM</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Opening Ceremony & Problem Statement</h3>
+                        <p class="timeline-desc">Ann Mathew kicks off HackQuest with challenge themes and judging criteria.</p>
+                    </div>
+                    <div class="timeline-time">7:00 PM</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Hacking Begins!</h3>
+                        <p class="timeline-desc">12 hours of intense coding, creativity, and innovation starts now!</p>
+                    </div>
+                    <div class="timeline-time">8:00 PM</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Mentor Sessions & Workshops</h3>
+                        <p class="timeline-desc">Technical workshops and mentoring sessions with Bellu John and Sarah Wilson.</p>
+                    </div>
+                    <div class="timeline-time">10:00 AM</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Project Submissions</h3>
+                        <p class="timeline-desc">Final submission deadline - showcase your innovative solutions!</p>
+                    </div>
+                    <div class="timeline-time">6:00 PM</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Demo Pitches & Awards</h3>
+                        <p class="timeline-desc">Present your projects to judges and celebrate the winners!</p>
+                    </div>
+                    <div class="timeline-time">7:00 PM</div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
